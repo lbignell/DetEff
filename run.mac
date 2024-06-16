@@ -1,0 +1,44 @@
+### Particle Type ###
+
+#Choose the particle type
+/gps/particle gamma
+#Other options include e-, e+, mu-, neutron, etc.
+
+#To run generic ions /gps/ion Z(atomic no) A(atomic mass) Q(ionic charge) E(excitation energy in ev)
+
+### Particle Energy ###
+
+#Enter particle energy
+/gps/energy 100 keV
+
+
+### Particle location ###
+
+#If only single location (X X X cm)
+/gps/position 0 0 0 cm
+
+#For random location throughout the detector space
+#Defined here is a cylinder, where the particles will occur within the volume
+#/gps/pos/type Volume
+#/gps/pos/shape Cylinder
+#/gps/pos/centre 0 0 0 cm
+#/gps/pos/halfz 10 cm
+#/gps/pos/radius 10 cm
+#/gps/pos/confine world_phys
+
+
+### Particle Direction ###
+# if isotropic
+/gps/ang/type iso
+
+#To define a direction X Y Z
+#/gps/direction 1 0 0 
+
+
+#Select file name
+/DetEff/outfile simOut
+
+### Number of events ###
+/run/beamOn 100000
+
+
