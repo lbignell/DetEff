@@ -21,9 +21,13 @@ SensitiveDetector::~SensitiveDetector(){;}
 /*This method is invoked at the beginning of each event. The argument of this method is an object of the G4HCofThisEvent class. Hits collections, where hits produced in this particular event are stored, can be associated to the G4HCofThisEvent object in this method. The hits collections associated with the G4HCofThisEvent  object during this method can be used for ``during the event processing'' digitization.*/
 void SensitiveDetector::Initialize(G4HCofThisEvent* HCE){
   RunAction* myRunAction = (RunAction*)(G4RunManager::GetRunManager()->GetUserRunAction());
+  (myRunAction->primX) =0; 
+  (myRunAction->primY) =0; 
+  (myRunAction->primZ) =0; 
   Edep = 0;
   TrackID = 0;
   writtenvertex = false;
+  writtenFirstInteraction = false;
 }
 
 /*This method is invoked by G4SteppingManager when a step is composed in the G4LogicalVolume which has the pointer to this sensitive detector. The first argument of this method is a G4Step  object of the current step. The second argument is a G4TouchableHistory object for the ``Readout geometry'' described in the next section. The second argument is NULL for the case ``Readout geometry'' is not assigned to this sensitive detector. In this method, one or more G4VHit objects should be constructed if the current step is meaningful for your detector.*/
@@ -47,6 +51,17 @@ G4bool SensitiveDetector::ProcessHits(G4Step* theStep, G4TouchableHistory*){
   
   Edep += theStep->GetTotalEnergyDeposit();
 
+  if((theStep->GetTotalEnergyDeposit()>0)&&
+		  (theStep->GetTrack()->GetTrackID()==1)&&
+		  (~writtenFirstInteraction)){
+	  //Record the location of the first interaction point
+  	  RunAction* myRA = (RunAction*)(G4RunManager::GetRunManager()->GetUserRunAction());
+	  G4ThreeVector intpoint = theStep->GetPostStepPoint()->GetPosition();
+	  (myRA->primX) = intpoint.x();
+	  (myRA->primY) = intpoint.y();
+	  (myRA->primZ) = intpoint.z();
+	  writtenFirstInteraction = true;
+  }
   //the return doesn't really matter unless you use the 'official' Geant4 hit collection
   return true;  
 }

@@ -27,6 +27,7 @@ private:
   G4double Edep;
   G4int TrackID;
   bool writtenvertex;
+  bool writtenFirstInteraction;
 };
 
 #endif
