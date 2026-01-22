@@ -24,9 +24,10 @@ public:
 
 private:
 //private member of this class, a pointer to an object of another class
-    //G4ParticleGun* gun;
-    G4GeneralParticleSource *particleGun;
-    G4double particle_energy;
+//
+//Old school method for creating particles is to use a particle gun, something like G4ParticleGun* gun;
+//This is less flexible than a general particle source, so I generally don't recommend it.
+    G4GeneralParticleSource *particleGPS;
 };
 
 #endif

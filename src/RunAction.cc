@@ -19,7 +19,7 @@ RunAction::RunAction(DetectorConstruction* DC){
   
   //take the DetectorConstruction pointer given when this object is created (in main) and copy to local member
   myDC = DC;
-  //instanciate the RA messenger
+  //instanciate the RA messenger with a pointer to this object
   pMessenger = new RunActionMessenger(this);
   
 }

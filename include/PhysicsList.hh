@@ -23,6 +23,7 @@ public:
 
 private:
    G4ParticleTable::G4PTblDicIterator *theParticleIterator;
+   //production cuts can affect secondaries in thin detectors
    G4double defaultCutValue = 1*mm;
    G4double cutForElectron = 1*mm;
    G4double cutForPositron = 1*mm;

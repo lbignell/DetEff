@@ -74,8 +74,7 @@ G4Box* world = new G4Box("world", world_sidelength/2, world_sidelength/2,
 G4LogicalVolume* logical_world = new G4LogicalVolume(world, air, "world_log", 0,0,0,true);
 
 G4VisAttributes* VA = new G4VisAttributes();
-//VA->SetColour(1,1,1);
-//VA->SetForceSolid(false);
+//hide the world volume, so it doesn't obscure the daughter volumes in the GUI
 VA->SetVisibility(false);
 logical_world->SetVisAttributes(VA);
 
@@ -83,6 +82,7 @@ logical_world->SetVisAttributes(VA);
 G4VPhysicalVolume* physical_world = new G4PVPlacement(0,G4ThreeVector(),logical_world, "world_phys", 0, false, 0);
 
 //G4Tubs has arguments: name (str), inner radius, outer radius, half-length, start theta, end theta.
+//These are hard-coded for now, but can be parameterised and adjusted in a macro with a Messenger class
 G4double rCrystal = 2.54*cm;
 G4double tEnclosure = 2*mm;
 G4double lCrystal = 2*2.54*cm;
@@ -113,6 +113,7 @@ SDman->AddNewDetector(SD);
 crys_log->SetSensitiveDetector(SD);
 
 G4VisAttributes* VAcrystal = new G4VisAttributes();
+//RGB values to set the colour (1,1,1)=white
 VAcrystal->SetColour(1,1,1);
 crys_log->SetVisAttributes(VA);
 

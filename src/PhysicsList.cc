@@ -70,7 +70,6 @@ PhysicsList::PhysicsList(G4int verbose, G4String LEN_model, G4String HadrPhysVar
   else if (LEN_model == "LEND")
   {
     RegisterPhysics(new G4HadronElasticPhysicsLEND(verbose, evaluation));
-    //G4DataQuestionaire itt(lend);
   }
   else
   {
@@ -128,8 +127,6 @@ PhysicsList::PhysicsList(G4int verbose, G4String LEN_model, G4String HadrPhysVar
   //RegisterPhysics(new G4OpticalPhysics());
   // Synchroton Radiation & GN Physics
   RegisterPhysics(new G4EmExtraPhysics());
-
-  //  AddStepMax();
 
   // Em options
   G4EmParameters *emOptions = G4EmParameters::Instance();

@@ -9,12 +9,14 @@
 
 RunActionMessenger::RunActionMessenger(RunAction *runAct) : fRunAction(runAct)
 {
-  fDirectory = new G4UIdirectory("/DetEff/");
+	//Creates a directory for macro commands under /DetEff/
+	fDirectory = new G4UIdirectory("/DetEff/");
 
-  fOutFileCmd = new G4UIcmdWithAString("/DetEff/outfile", this);
-  fOutFileCmd->SetGuidance("Set the output file name without extension");
-  fOutFileCmd->SetGuidance("(default: out)");
-  fOutFileCmd->SetParameterName("choice", false);
+	//New command with string argument to modify the output file name from the default	
+	fOutFileCmd = new G4UIcmdWithAString("/DetEff/outfile", this);
+      	fOutFileCmd->SetGuidance("Set the output file name without extension");
+      	fOutFileCmd->SetGuidance("(default: out)");
+      	fOutFileCmd->SetParameterName("choice", false);
 
 }
 
@@ -31,7 +33,7 @@ void RunActionMessenger::SetNewValue(G4UIcommand *command,
   if (command == fOutFileCmd)
   {
     fRunAction->SetOutFile(newValue);
-  }
+  }//If we had more commands, we could add them as so:
   /*else if (command == fAnotherCommand)
   {
     fRunAction->TheOtherCmd(fAnotherCommand->GetNewDoubleValue(newValue));

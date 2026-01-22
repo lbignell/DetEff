@@ -53,7 +53,8 @@ int main(int argc, char** argv){
   //A second argument means run interactively.
   G4UIExecutive* ui = 0;
   if ( argc == 1 ) {
-      ui = new G4UIExecutive(argc, argv);
+	  // no extra command line argument --> run in interactive mode
+	  ui = new G4UIExecutive(argc, argv);
   }
   // Get the pointer to the User Interface manager
   G4VisManager* visManager = new G4VisExecutive();

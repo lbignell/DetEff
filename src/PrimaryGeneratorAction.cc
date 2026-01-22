@@ -16,19 +16,17 @@
 
 PrimaryGeneratorAction::PrimaryGeneratorAction(){
 //we need to use dynamic memory allocation for the G4ParticleGun object
-  particleGun = new G4GeneralParticleSource();
+  particleGPS = new G4GeneralParticleSource();
 
-  // default particle
+  // default particle type -- can be changed in the macro with /gps/ commands
   G4ParticleTable *particleTable = G4ParticleTable::GetParticleTable();
   G4ParticleDefinition *particle = particleTable->FindParticle("e-");
-  particleGun->SetParticleDefinition(particle);
-  particle_energy = 10 * keV;
-
+  particleGPS->SetParticleDefinition(particle);
 }
 
 PrimaryGeneratorAction::~PrimaryGeneratorAction(){
 //free the dynamically allocated memory
-  delete particleGun;
+  delete particleGPS;
 
 }
 
@@ -37,6 +35,6 @@ void PrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent){
 /*if you wish to randomise some aspect of the primary beam, you will need to utilise the Set methods of the G4ParticleGun object to do so*/
   
   G4int numParticles = 1;
-  particleGun->SetNumberOfParticles(numParticles);
-  particleGun->GeneratePrimaryVertex(anEvent);
+  particleGPS->SetNumberOfParticles(numParticles);
+  particleGPS->GeneratePrimaryVertex(anEvent);
 }
