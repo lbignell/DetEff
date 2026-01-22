@@ -1,6 +1,7 @@
 //This will be a simple goemetry just to check and see if I can get it working
 
 #include "DetectorConstruction.hh"
+#include "DetectorConstructionMessenger.hh"
 //include header files for all classes used in the methods
 #include "globals.hh"
 #include "G4Element.hh"
@@ -27,7 +28,7 @@
 
 //constructor / destructor do nothing
 DetectorConstruction::DetectorConstruction(){
-
+fDetMessenger = new DetectorConstructionMessenger(this);
 }
 
 DetectorConstruction::~DetectorConstruction(){ 
@@ -48,10 +49,19 @@ G4Material* air = man->FindOrBuildMaterial("G4_AIR");
 G4Material* Al = man->FindOrBuildMaterial("G4_Al");
   
 //constructor of the G4Material class requires arguments: string containing name of material, density, number of elements, state (enum), temperature, pressure
+if(fScintName == "LaBr3"){
 //Lanthanum Bromide Crystal
-G4Material* LaBr3 = new G4Material("LanthanumBromide", 5.08 * g / cm3, 2);
-LaBr3->AddElement(elLa,1);
-LaBr3->AddElement(elBr,3);
+fScintMat = new G4Material("LanthanumBromide", 5.08 * g / cm3, 2);
+fScintMat->AddElement(elLa,1);
+fScintMat->AddElement(elBr,3);
+}
+else if(fScintName == "NaI"){ fScintMat = man->FindOrBuildMaterial("G4_SODIUM_IODIDE"); }
+else{
+	G4cout << "Unknown material: " << fScintName << ", reverting to LaBr3" << G4endl;
+	fScintMat = new G4Material("LanthanumBromide", 5.08 * g / cm3, 2);
+	fScintMat->AddElement(elLa,1);
+	fScintMat->AddElement(elBr,3);
+}
 
 
 /*the volumes: */
@@ -99,7 +109,7 @@ G4VPhysicalVolume* encl_phys = new G4PVPlacement(0, G4ThreeVector(0,0,20*cm), en
 
 G4Tubs* crystal = new G4Tubs("crystal", 0, rCrystal, lCrystal/2, 0, 360*deg);
 
-G4LogicalVolume* crys_log = new G4LogicalVolume(crystal, LaBr3, "crystal_log", 
+G4LogicalVolume* crys_log = new G4LogicalVolume(crystal, fScintMat, "crystal_log", 
 		0, 0, 0,true);
 
 //create SensitiveDetector object

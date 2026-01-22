@@ -43,6 +43,9 @@ void RunAction::BeginOfRunAction(const G4Run* aRun){
 	data->Branch("pz0", &pz0);
 	data->Branch("E0", &E0);
 	data->Branch("PID0", &PID0);
+	data->Branch("primX", &primX);
+	data->Branch("primY", &primY);
+	data->Branch("primZ", &primZ);
 
 }
 
