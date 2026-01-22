@@ -61,9 +61,6 @@ public:
   G4double E0;
   G4int PID0;
   G4double Edep;
-  G4double primX;
-  G4double primY;
-  G4double primZ;
 
   //Messenger set/get
   void SetOutFile(G4String theval){fname = theval;}
